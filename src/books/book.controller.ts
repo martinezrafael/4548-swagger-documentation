@@ -22,7 +22,9 @@ class BookController {
 
   async findByTitle(req: Request, res: Response): Promise<void> {
     try {
-      const book = await new BookService().findByTitle(req.params.title);
+      const book = await new BookService().findByTitle(
+        req.params.title as string,
+      );
       if (!book || book.length === 0) {
         res.status(404).send({ message: "Book not found" });
       }
@@ -36,8 +38,8 @@ class BookController {
   async update(req: Request, res: Response): Promise<void> {
     try {
       const updatedBook = await new BookService().update(
-        req.params.id,
-        req.body
+        req.params.id as string,
+        req.body,
       );
       if (!updatedBook) {
         res.status(404).send({ message: "Book not found" });
@@ -50,7 +52,9 @@ class BookController {
 
   async delete(req: Request, res: Response): Promise<void> {
     try {
-      const deletedBook = await new BookService().delete(req.params.id);
+      const deletedBook = await new BookService().delete(
+        req.params.id as string,
+      );
       if (!deletedBook) {
         res.status(404).send({ message: "Book not found" });
       }
